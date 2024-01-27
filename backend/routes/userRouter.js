@@ -8,8 +8,9 @@ const validateToken = require("../middleware/validateToken");
 const router = express.Router();
 
 router.route("/login").post(loginUser);
+router.route("/register").post(registerUser);
 
-router.post("/register", registerUser);
+// router.post("/register", registerUser);
 
 router.get("/current", validateToken, currentUser);
 module.exports = router;

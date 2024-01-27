@@ -18,8 +18,8 @@ const registerUser = asyncHandler(async (req, res) => {
   }
   const encrypt = await bcrypt.hash(password, 10);
   const user = await Users.create({
-    username,
-    email,
+    username: username,
+    email: email,
     password: encrypt,
   });
   if (user) {
@@ -28,11 +28,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     res.json("User Data is not valid");
   }
-  // res.status(200).json(user);
-  // console.log(`Registered Successfully with username ${username}`);
 });
-
-//// LOGIN DESC
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -57,7 +53,6 @@ const loginUser = asyncHandler(async (req, res) => {
     );
     res.json({ accessToken });
   } else {
-    res.status(400);
     throw new Error("Incorrect User ID and Password");
   }
 });
