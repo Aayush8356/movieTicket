@@ -28,15 +28,16 @@ const Login = () => {
         },
         body: JSON.stringify(user),
       });
-      const data = await response.json();
-      console.log(data.accessToken);
       if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("token", data.accessToken);
         navigate("/home");
       } else {
-        console.log(response);
+        console.log("Error");
       }
     } catch (error) {
       console.log("error from login", error);
+      navigate("/login");
     }
   };
 

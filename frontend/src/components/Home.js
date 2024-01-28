@@ -8,15 +8,16 @@ import Nav from "./Nav.js";
 const Home = () => {
   const [movieList, setmovieList] = useState([]);
   const [loading, isLoading] = useState(true);
+  const [token, setToken] = useState("");
   async function getData(value) {
+    setToken(localStorage.getItem("token"));
     try {
       const response = await fetch(
         `http://localhost:5001/movies/search/${value}`,
         {
           method: "GET",
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiYWF5dXNoMyIsImVtYWlsIjoiYWF5dXNoM0BnbWFpbC5jb20iLCJpZCI6IjY1YWViZWMwMzg1ZjFlZGViOTE5NjRkYyJ9LCJpYXQiOjE3MDYzNzk1NTQsImV4cCI6MTcwNjM4MDc1NH0.4pzkp_WQu2Ge9lpzG1rDTdfbUKvS3v9lhY8C0gas_nI",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -36,7 +37,7 @@ const Home = () => {
   }
   useEffect(() => {
     getData();
-  }, []);
+  }, [token]);
   return (
     <>
       <Nav show="none" />
