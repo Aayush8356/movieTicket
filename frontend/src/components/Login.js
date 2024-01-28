@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../storage/auth.js";
 import Nav from "./Nav.js";
 
 const Login = () => {
@@ -7,7 +8,9 @@ const Login = () => {
     username: "",
     password: "",
   });
+  const [invalid, setInvalid] = useState("");
   const navigate = useNavigate();
+  const { storeTokenInLS } = useAuth();
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -30,9 +33,10 @@ const Login = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("token", data.accessToken);
+        storeTokenInLS(data.accessToken);
         navigate("/home");
       } else {
+        setInvalid("Invalid Credentials");
         console.log("Error");
       }
     } catch (error) {
@@ -60,6 +64,15 @@ const Login = () => {
               <div className="registration-form">
                 <h1 className="main-heading mb-3">Login</h1>
                 <br />
+                <div>
+                  <h2
+                    style={{
+                      color: "red",
+                    }}
+                  >
+                    {invalid}
+                  </h2>
+                </div>
                 <form onSubmit={handleSubmit}>
                   <div>
                     <label htmlFor="email">email</label>

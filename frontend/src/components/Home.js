@@ -4,22 +4,16 @@ import Loader from "./Loader";
 import MovieCart from "./MovieCart";
 import Search from "./Search.js";
 import Nav from "./Nav.js";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [movieList, setmovieList] = useState([]);
   const [loading, isLoading] = useState(true);
-  const [token, setToken] = useState("");
+  // const navigate = useNavigate();
   async function getData(value) {
-    setToken(localStorage.getItem("token"));
     try {
       const response = await fetch(
-        `http://localhost:5001/movies/search/${value}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        `http://localhost:5001/movies/search/${value}`
       );
       const data = await response.json();
       if (data.Search !== undefined) {
@@ -29,15 +23,12 @@ const Home = () => {
         isLoading(true);
       }
     } catch (error) {
-      console.log(
-        error,
-        "there's an error while fetching the data from backend"
-      );
+      console.log(error, "Invalid credentials or Token Expired");
     }
   }
   useEffect(() => {
     getData();
-  }, [token]);
+  }, []);
   return (
     <>
       <Nav show="none" />

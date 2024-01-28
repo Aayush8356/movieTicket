@@ -1,3 +1,4 @@
+import Footer from "./components/Footer.js";
 import Home from "./components/Home.js";
 
 import Login from "./components/Login.js";
@@ -16,6 +17,7 @@ function App() {
         <Route path="/about" element={<h2>This is about page</h2>} />
         <Route path="*" element={<h1>Page not found</h1>} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
