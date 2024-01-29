@@ -1,9 +1,9 @@
 import React from "react";
 
-const ErrorMessage = ({ message }) => {
+const ErrorMessage = () => {
   return (
     <>
-      <h3>No Such Movie Found</h3>
+      <h3>This page has error for some reason</h3>
     </>
   );
 };

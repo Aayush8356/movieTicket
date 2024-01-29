@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Nav from "./Nav.js";
 const SignUp = () => {
   const [user, setUser] = useState({
     username: "",
@@ -20,7 +19,6 @@ const SignUp = () => {
     });
   };
 
-  // handle form on submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(user);
@@ -44,7 +42,7 @@ const SignUp = () => {
 
   return (
     <>
-      <Nav show="block" />
+      {/* <Nav show="block" /> */}
       <section>
         <main>
           <div className="section-registration">

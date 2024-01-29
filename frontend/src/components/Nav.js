@@ -1,32 +1,45 @@
 import React from "react";
-import { Link } from "react-router-dom";
-const Nav = ({ about = "About", login = "login", signup = "SignUp", show }) => {
+import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../storage/auth.js";
+const Nav = () => {
+  const { isLoggedIn } = useAuth();
+
   return (
     <div className="navbar">
-      <Link
+      <NavLink
         to={"/"}
         style={{
           textDecoration: "none",
           color: "GrayText",
+          fontSize: "2rem",
         }}
       >
-        <h1 id="title">MOVIEZZ . . .</h1>
-      </Link>
-      <div
-        className="auth-button"
-        style={{
-          display: { show },
-        }}
-      >
+        Moviezz..
+      </NavLink>
+
+      <div className="auth-button">
         <Link to={"/about"}>
-          <button>{about}</button>
-          <Link to={"/"}>
-            <button>{signup}</button>
-          </Link>
+          <button>About</button>
         </Link>
-        <Link to={"/login"}>
-          <button>{login}</button>
-        </Link>
+        {isLoggedIn ? (
+          <>
+            <Link to={"/Profile"}>
+              <button>Profile</button>
+            </Link>
+            <Link to={"/logout"}>
+              <button>Logout</button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to={"/"}>
+              <button>Signup</button>
+            </Link>
+            <Link to={"/login"}>
+              <button>Login</button>
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

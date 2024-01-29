@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 
 const Search = ({ childFunction }) => {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState("money");
   const value = useRef(null);
 
   function handleChange() {
