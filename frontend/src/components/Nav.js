@@ -7,7 +7,7 @@ const Nav = () => {
   return (
     <div className="navbar">
       <NavLink
-        to={"/"}
+        to={"/home"}
         style={{
           textDecoration: "none",
           color: "GrayText",

@@ -9,7 +9,7 @@ const Login = () => {
   });
   const [invalid, setInvalid] = useState("");
   const navigate = useNavigate();
-  const { storeTokenInLS } = useAuth();
+  const { storeTokenInLS, storeIdInLS } = useAuth();
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -32,15 +32,12 @@ const Login = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data.accessToken);
         storeTokenInLS(data.accessToken);
+        storeIdInLS(data.id);
         navigate("/home");
       } else {
         setInvalid("Invalid Credentials");
-        // setUser({
-        //   password: "",
-        // });
-        console.log("Error");
+        console.log("Wrong Id Pass");
       }
     } catch (error) {
       console.log("error from login", error);

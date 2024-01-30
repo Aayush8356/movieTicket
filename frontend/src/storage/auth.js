@@ -4,23 +4,33 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState("");
+  const [profiles, setProfile] = useState("");
 
   const storeTokenInLS = (serverToken) => {
     setToken(serverToken);
     return localStorage.setItem("token", serverToken);
   };
-
-  const isLoggedIn = !!token;
-  console.log("token", token);
+  let isLoggedIn = !!token;
   console.log("isLoggedIn", isLoggedIn);
+
+  const storeIdInLS = (profile) => {
+    setProfile(profile);
+    console.log(profile, "ye id hai kya?");
+    return localStorage.setItem("id", profile);
+  };
+
+  let myId = profiles;
 
   const LogoutUser = () => {
     setToken("");
-    return localStorage.removeItem("token");
+    setProfile("");
+    return localStorage.removeItem(["token", "id"]);
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, storeTokenInLS, LogoutUser }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, myId, storeIdInLS, storeTokenInLS, LogoutUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

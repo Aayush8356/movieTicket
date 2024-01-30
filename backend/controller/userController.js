@@ -51,7 +51,8 @@ const loginUser = asyncHandler(async (req, res) => {
         expiresIn: "20m",
       }
     );
-    res.json({ accessToken });
+    const { id } = user;
+    res.json({ accessToken, id });
   } else {
     throw new Error("Incorrect User ID and Password");
   }
@@ -60,7 +61,9 @@ const loginUser = asyncHandler(async (req, res) => {
 /// CURRENT USER DESC
 
 const currentUser = asyncHandler(async (req, res) => {
-  res.status(200).json(req.user);
+  const user = await Users.findById(req.params.id);
+  const { username, email } = user;
+  res.status(200).json({ username, email });
 });
 
 module.exports = { registerUser, loginUser, currentUser };
