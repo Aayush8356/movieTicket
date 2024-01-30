@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../storage/auth.js";
 const Nav = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, LogoutUser, reload } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="navbar">
@@ -26,9 +27,17 @@ const Nav = () => {
             <Link to={"/Profile"}>
               <button>Profile</button>
             </Link>
-            <Link to={"/logout"}>
-              <button>Logout</button>
-            </Link>
+            {/* < to={"/logout"}> */}
+            <button
+              onClick={async () => {
+                LogoutUser();
+                await reload();
+                navigate("/login");
+              }}
+            >
+              Logout
+            </button>
+            {/* </ */}
           </>
         ) : (
           <>

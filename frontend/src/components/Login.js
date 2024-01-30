@@ -9,7 +9,7 @@ const Login = () => {
   });
   const [invalid, setInvalid] = useState("");
   const navigate = useNavigate();
-  const { storeTokenInLS, storeIdInLS } = useAuth();
+  const { storeTokenInLS, storeIdInLS, reload } = useAuth();
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -34,6 +34,7 @@ const Login = () => {
         const data = await response.json();
         storeTokenInLS(data.accessToken);
         storeIdInLS(data.id);
+        await reload();
         navigate("/home");
       } else {
         setInvalid("Invalid Credentials");

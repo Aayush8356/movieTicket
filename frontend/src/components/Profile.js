@@ -5,28 +5,32 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 const Profile = () => {
-  const { myId, isLoggedIn } = useAuth();
-  const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  async function getData() {
-    try {
-      const response = await fetch(
-        `http://localhost:5001/user/current/${myId}`
-      );
-      const data = await response.json();
-      console.log(data);
-      const { username, email } = data;
-      setEmail(email);
-      setUsername(username);
-    } catch (error) {
-      console.log(error, "Login nhi kra tune");
-      navigate("/login");
-    }
-  }
-  useEffect(() => {
-    getData();
-  }, []);
+  const { myId, isLoggedIn, user } = useAuth();
+  const { username, email } = user ?? {};
+  // const username= user?.username
+  // const email= user?.email
+  // const {username,email} =  {}
+  // const navigate = useNavigate();
+  // const [username, setUsername] = useState("");
+  // const [email, setEmail] = useState("");
+  // async function getData() {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:5001/user/current/${myId}`
+  //     );
+  //     const data = await response.json();
+  //     console.log(data);
+  //     const { username, email } = data;
+  //     setEmail(email);
+  //     setUsername(username);
+  //   } catch (error) {
+  //     console.log(error, "Login nhi kra tune");
+  //     navigate("/login");
+  //   }
+  // }
+  // useEffect(() => {
+  //   // getData();
+  // }, []);
   return (
     <>
       <div className="profile-heading">{username}'s Profile</div>
