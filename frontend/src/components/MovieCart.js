@@ -1,5 +1,26 @@
 import React from "react";
-const MovieCart = ({ Name, Poster, Type, Year }) => {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../storage/auth";
+const MovieCart = ({ title, poster, type, year }) => {
+  const { token } = useAuth();
+  const URL = "http://localhost:5001";
+  const saveMovieInList = async () => {
+    const response = await fetch(`${URL}/movies/collection`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, poster, type, year }),
+    });
+    if (response.ok) {
+      console.log({ response });
+      toast(`${title} added`);
+    } else {
+      toast("already added");
+    }
+  };
   return (
     <div
       className="movie"
@@ -7,7 +28,7 @@ const MovieCart = ({ Name, Poster, Type, Year }) => {
         "row-gap": "1em",
       }}
     >
-      <img src={Poster} alt={Name} />
+      <img src={poster} alt={title} />
       <h1
         style={{
           width: "240px",
@@ -18,10 +39,10 @@ const MovieCart = ({ Name, Poster, Type, Year }) => {
           "text-align": "center",
         }}
       >
-        {Name}
+        {title}
       </h1>
-      <p>Type: {Type}</p>
-      <p>Released In: {Year}</p>
+      <p>Type: {type}</p>
+      <p>Released In: {year}</p>
 
       <div className="fav-btn">
         <button
@@ -30,9 +51,11 @@ const MovieCart = ({ Name, Poster, Type, Year }) => {
             borderRadius: "0%",
             cursor: "pointer",
           }}
+          onClick={saveMovieInList}
         >
-          +Fav
+          Fav+
         </button>
+        <ToastContainer />
       </div>
     </div>
   );

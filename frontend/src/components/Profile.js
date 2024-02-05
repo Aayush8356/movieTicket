@@ -5,32 +5,24 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 const Profile = () => {
-  const { myId, isLoggedIn, user } = useAuth();
-  const { username, email } = user ?? {};
-  // const username= user?.username
-  // const email= user?.email
-  // const {username,email} =  {}
-  // const navigate = useNavigate();
-  // const [username, setUsername] = useState("");
-  // const [email, setEmail] = useState("");
-  // async function getData() {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:5001/user/current/${myId}`
-  //     );
-  //     const data = await response.json();
-  //     console.log(data);
-  //     const { username, email } = data;
-  //     setEmail(email);
-  //     setUsername(username);
-  //   } catch (error) {
-  //     console.log(error, "Login nhi kra tune");
-  //     navigate("/login");
-  //   }
-  // }
-  // useEffect(() => {
-  //   // getData();
-  // }, []);
+  const { user, isLoggedIn } = useAuth();
+  const [username, setusername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
+  const navigate = useNavigate();
+  const renderMe = () => {
+    if (isLoggedIn) {
+      setusername(user.username);
+      setEmail(user.email);
+      console.log(username, email);
+    } else {
+      console.log("not logged in");
+      navigate("/logout");
+    }
+  };
+  useEffect(() => {
+    renderMe();
+  });
+
   return (
     <>
       <div className="profile-heading">{username}'s Profile</div>
@@ -48,7 +40,7 @@ const Profile = () => {
             <div className="list">
               <div className="key">My collections</div>
               <div className="value">
-                <NavLink to={"/collection"}>view</NavLink>
+                <NavLink to={`/${user.username}/mycollections`}>view</NavLink>
               </div>
             </div>
             <div className="list">

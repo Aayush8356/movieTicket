@@ -4,7 +4,7 @@ import Loader from "./Loader";
 import MovieCart from "./MovieCart";
 import Search from "./Search.js";
 import { useAuth } from "../storage/auth.js";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -16,8 +16,17 @@ const Home = () => {
     try {
       value = value ? value : "life";
       const response = await fetch(
-        `http://localhost:5001/movies/search/${value}`
+        `http://localhost:5001/movies/search/${value}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
+      if (response.statusCode === 500) {
+        isLoading(true);
+        setError("Please Login First!");
+      }
       const data = await response.json();
       if (isLoggedIn) {
         setmovieList(data.Search);
@@ -28,7 +37,9 @@ const Home = () => {
         navigate("/login");
       }
     } catch (error) {
+      isLoading(true);
       console.log("Error while fetching data from backend", error);
+      navigate("/login");
     }
   }
   useEffect(() => {
@@ -45,10 +56,10 @@ const Home = () => {
             movieList.map((i) => (
               <MovieCart
                 key={i.imdbID}
-                Poster={i.Poster}
-                Name={i.Title}
-                Type={i.Type}
-                Year={i.Year}
+                poster={i.Poster}
+                title={i.Title}
+                type={i.Type}
+                year={i.Year}
               />
             ))
           )}

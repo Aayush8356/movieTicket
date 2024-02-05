@@ -48,22 +48,38 @@ const loginUser = asyncHandler(async (req, res) => {
       },
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: "20m",
+        expiresIn: "30d",
       }
     );
-    const { id } = user;
-    res.json({ accessToken, id });
+    res.json({ accessToken });
   } else {
-    throw new Error("Incorrect User ID and Password");
+    return res
+      .status(401)
+      .json({ meassage: "Invalid email address or password" });
   }
 });
 
 /// CURRENT USER DESC
 
-const currentUser = asyncHandler(async (req, res) => {
-  const user = await Users.findById(req.params.id);
-  const { username, email } = user;
-  res.status(200).json({ username, email });
-});
+const meUser = async (req, res) => {
+  const _user = req.user;
+  if (!_user) {
+    res.status(400);
+    return { error: "Token has been expired!" };
+  }
+  const { id } = _user;
+  const user = await Users.findById(id);
+  if (!user) {
+    res.status(400);
+    return { error: "user not found" };
+  }
+  res.status(200).json(user);
+};
 
-module.exports = { registerUser, loginUser, currentUser };
+// const currentUser = asyncHandler(async (req, res) => {
+//   const user = await Users.findById(req.params.id);
+//   const { username, email } = user;
+//   res.status(200).json({ username, email });
+// });
+
+module.exports = { registerUser, loginUser, meUser };

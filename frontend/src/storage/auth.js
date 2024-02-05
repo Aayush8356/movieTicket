@@ -2,77 +2,63 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState("");
-  const [profiles, setProfile] = useState("");
-  const [user, setUser] = useState(undefined);
-  const [islogged, setisLogged] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
-  const getCurrentUser = async () => {
-    const token = localStorage?.getItem("token");
+  const API = "http://localhost:5001";
 
-    setIsLoading(true);
-    if (!token) {
-      setIsLoading(false);
-      setisLogged(false);
-      return;
-    }
-    const response = await fetch(`http://localhost:5001/user/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (!response.ok || response.status !== 200) {
-      setisLogged(false);
-    } else {
-      const user = await response.json();
-      console.log("🚀 ~ getCurrentUser ~ user:", user);
-      if (user?.id) {
-        setisLogged(true);
-        setUser(user);
-      }
-    }
-    setIsLoading(false);
-    // console.log("🚀 ~ getCurrentUser ~ user:", user);
-  };
   const storeTokenInLS = (serverToken) => {
     setToken(serverToken);
     return localStorage.setItem("token", serverToken);
   };
-  useEffect(() => {
-    getCurrentUser();
-  }, []);
 
-  // let isLoggedIn = !!token;
-  // console.log("isLoggedIn", isLoggedIn);
-
-  const storeIdInLS = (profile) => {
-    setProfile(profile);
-    console.log(profile, "ye id hai kya?");
-    return localStorage.setItem("id", profile);
-  };
-
-  let myId = profiles;
-
+  let isLoggedIn = !!token;
+  console.log({ isLoggedIn });
   const LogoutUser = () => {
     setToken("");
-    setProfile("");
     localStorage.removeItem("token");
-    localStorage.removeItem("id");
   };
 
+  const userAuthentication = async () => {
+    try {
+      // setIsLoading(true);
+      const response = await fetch(`${API}/user/me`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data);
+        // setIsLoading(false);
+      } else if (response.status === 500) {
+        setToken("");
+        localStorage.removeItem("token");
+      } else {
+        console.log(response.data);
+        // setIsLoading(false);
+      }
+    } catch (error) {
+      console.error("Error fetching user data from catch");
+    }
+  };
+  useEffect(() => {
+    userAuthentication();
+  }, []);
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: islogged,
-        isLoading,
-        user,
-        reload: getCurrentUser,
-        myId,
-        storeIdInLS,
+        isLoggedIn,
         storeTokenInLS,
         LogoutUser,
+        user,
+        isLoading,
+        token,
       }}
     >
       {children}

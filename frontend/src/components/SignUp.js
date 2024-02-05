@@ -32,6 +32,7 @@ const SignUp = () => {
       });
       console.log(response);
       alert("registered!");
+
       if (response.ok) {
         navigate("/login");
       }
@@ -89,19 +90,6 @@ const SignUp = () => {
                       onChange={handleInput}
                     />
                   </div>
-                  {/* <div>
-                    <label htmlFor="phone">phone</label>
-                    <input
-                      type="number"
-                      name="phone"
-                      placeholder="phone"
-                      id="phone"
-                      required
-                      autoComplete="off"
-                      value={user.phone}
-                      onChange={handleInput}
-                    />
-                  </div> */}
 
                   <div>
                     <label htmlFor="password">password</label>

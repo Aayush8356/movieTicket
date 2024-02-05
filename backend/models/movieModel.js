@@ -1,24 +1,25 @@
 const mongoose = require("mongoose");
 const userSchema = mongoose.Schema(
-  // Title, Poster, Actors, Genre,Type
+  // title, poster, type, year
   {
-    Title: {
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    title: {
       type: String,
       required: [true, "Please provide the title"],
     },
-    Poster: {
+    poster: {
       type: String,
       required: [true, "URL"],
     },
-    Type: {
+    type: {
       type: String,
       required: [true, "Please provide a password"],
     },
-    // Actors: {
-    //   type: String,
-    //   required: [true, "Please provide the title"],
-    // },
-    Year: {
+    year: {
       type: String,
       required: [true, "Please provide the title"],
     },

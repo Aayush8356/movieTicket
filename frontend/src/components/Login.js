@@ -1,19 +1,21 @@
-import { useState } from "react";
+import { useState, React } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../storage/auth.js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const notify = () => toast("Logging In!");
   const [user, setUser] = useState({
     username: "",
     password: "",
   });
   const [invalid, setInvalid] = useState("");
   const navigate = useNavigate();
-  const { storeTokenInLS, storeIdInLS, reload } = useAuth();
+  const { storeTokenInLS } = useAuth();
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
-
     setUser({
       ...user,
       [name]: value,
@@ -33,8 +35,7 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         storeTokenInLS(data.accessToken);
-        storeIdInLS(data.id);
-        await reload();
+        console.log(data);
         navigate("/home");
       } else {
         setInvalid("Invalid Credentials");
@@ -99,9 +100,14 @@ const Login = () => {
                   </div>
                   <span>
                     <Link to={"/"}>New here?</Link>
-                    <button type="submit" className="btn btn-submit">
+                    <button
+                      type="submit"
+                      className="btn btn-submit"
+                      onClick={notify}
+                    >
                       Login
                     </button>
+                    <ToastContainer />
                   </span>
                 </form>
               </div>

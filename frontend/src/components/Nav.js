@@ -1,10 +1,8 @@
-import React from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../storage/auth.js";
 const Nav = () => {
-  const { isLoggedIn, LogoutUser, reload } = useAuth();
-  const navigate = useNavigate();
-
+  const { isLoggedIn } = useAuth();
   return (
     <div className="navbar">
       <NavLink
@@ -24,28 +22,20 @@ const Nav = () => {
         </Link>
         {isLoggedIn ? (
           <>
-            <Link to={"/Profile"}>
+            <Link to={"/profile"}>
               <button>Profile</button>
             </Link>
-            {/* < to={"/logout"}> */}
-            <button
-              onClick={async () => {
-                LogoutUser();
-                await reload();
-                navigate("/login");
-              }}
-            >
-              Logout
-            </button>
-            {/* </ */}
+            <Link to={"/logout"}>
+              <button>Logout</button>
+            </Link>
           </>
         ) : (
           <>
-            <Link to={"/"}>
-              <button>Signup</button>
-            </Link>
             <Link to={"/login"}>
               <button>Login</button>
+            </Link>
+            <Link to={"/"}>
+              <button>Signup</button>
             </Link>
           </>
         )}

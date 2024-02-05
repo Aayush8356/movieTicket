@@ -8,31 +8,31 @@ import Profile from "./components/Profile.js";
 import "./style/index.css";
 import { useAuth } from "./storage/auth.js";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MyCollections from "./pages/MyCollections.js";
 
 function App() {
-  const { isLoggedIn, isLoading, ...rest } = useAuth();
-  console.log({ isLoggedIn, isLoading, rest });
+  const { isLoggedIn, user } = useAuth();
   return (
     <Router>
       <Nav />
       <Routes>
-        {!isLoading && (
+        {isLoggedIn ? (
           <>
-            {isLoggedIn ? (
-              <>
-                {/* Protected Routes */}
-                <Route path="/home" element={<Home />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/about" element={<h1>This is about page</h1>} />
-              </>
-            ) : (
-              <>
-                {/* Public Route */}
-                <Route path="/" element={<SignUp />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/logout" element={<Logout />} />
-              </>
-            )}
+            {/* Protected Routes */}
+            <Route path="/home" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route
+              path={`/${user.username}/mycollections`}
+              element={<MyCollections />}
+            />
+          </>
+        ) : (
+          <>
+            {/* Public Route */}
+            <Route path="/" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/about" element={<h1>This is about page</h1>} />
           </>
         )}
         <Route path="*" element={<h1>Page not found</h1>} />
