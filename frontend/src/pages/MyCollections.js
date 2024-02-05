@@ -37,10 +37,25 @@ const MyCollections = () => {
   return (
     <>
       <div className="profile-heading">{user.username}'s Collections</div>
+      <div className="c-container">
+        <div className="profile-container collection-container">
+          <div
+            className="usr list c-list"
+            style={{
+              backgroundColor: "#fff",
+            }}
+          >
+            <div className="key c-key">Movie/Series</div>
+            <div className="value c-value">Year</div>
+          </div>
+        </div>
+      </div>
       {loading ? (
         <Loader />
       ) : (
-        list.map((i) => <CollectionCart title={i.title} year={i.year} />)
+        list.map((i) => (
+          <CollectionCart title={i.title} year={i.year} key={i._id} />
+        ))
       )}
     </>
   );

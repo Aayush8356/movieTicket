@@ -46,4 +46,21 @@ const getMovieList = async (req, res) => {
   res.status(200).json({ movie });
 };
 
-module.exports = { createTicket, movieStore, getMovieList };
+// api for deleting a movie
+
+const removeMovie = async (req, res) => {
+  const { id } = req.user;
+  const { title } = req.body;
+  // const movie = await Movies.findOne({ user_id: id, title: title });
+
+  // console.log(movie, movie._id);
+  // if (!movie) {
+  //   res.status(404);
+  //   throw new Error("Movie not found!");
+  // }
+  // console.log(movie);
+  const result = await Movies.deleteOne({ user_id: id, title: title });
+  res.status(200).json(result);
+};
+
+module.exports = { createTicket, movieStore, getMovieList, removeMovie };

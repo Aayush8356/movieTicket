@@ -32,7 +32,6 @@ function App() {
             {/* Public Route */}
             <Route path="/" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/about" element={<h1>This is about page</h1>} />
           </>
         )}
         <Route path="*" element={<h1>Page not found</h1>} />

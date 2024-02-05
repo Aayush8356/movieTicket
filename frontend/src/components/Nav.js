@@ -17,11 +17,11 @@ const Nav = () => {
       </NavLink>
 
       <div className="auth-button">
-        <Link to={"/about"}>
-          <button>About</button>
-        </Link>
         {isLoggedIn ? (
           <>
+            <Link to={"/home"}>
+              <button>Home</button>
+            </Link>
             <Link to={"/profile"}>
               <button>Profile</button>
             </Link>
