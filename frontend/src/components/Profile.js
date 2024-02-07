@@ -9,7 +9,7 @@ const Profile = () => {
   const [username, setusername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
   const navigate = useNavigate();
-  const renderMe = () => {
+  // const renderMe = () => {
     if (isLoggedIn) {
       setusername(user.username);
       setEmail(user.email);
@@ -19,9 +19,9 @@ const Profile = () => {
       navigate("/logout");
     }
   };
-  useEffect(() => {
-    renderMe();
-  });
+  // useEffect(() => {
+  //   renderMe();
+  // });
 
   return (
     <>
