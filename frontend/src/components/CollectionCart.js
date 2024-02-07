@@ -2,7 +2,7 @@ import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const CollectionCart = ({ title, year, type }) => {
-  const URL = "http://localhost:5001";
+  const URL = "https://movie-ticket-api.onrender.com";
   const handleDelete = async () => {
     try {
       const response = await fetch(`${URL}/movies/collection/remove`, {
