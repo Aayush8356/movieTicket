@@ -9,7 +9,7 @@ const MyCollections = () => {
   const [list, setList] = useState([]);
   const [loading, isLoading] = useState(true);
   const { token, user } = useAuth();
-  const URL = "http://localhost:5001";
+  const URL = "https://movie-ticket-api.onrender.com";
 
   const getData = async () => {
     try {
