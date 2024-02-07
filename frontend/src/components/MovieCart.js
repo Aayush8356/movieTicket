@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../storage/auth";
 const MovieCart = ({ title, poster, type, year }) => {
   const { token } = useAuth();
-  const URL = "http://localhost:5001";
+  const URL = "https://movie-ticket-api.onrender.com";
   const saveMovieInList = async () => {
     const response = await fetch(`${URL}/movies/collection`, {
       method: "POST",
