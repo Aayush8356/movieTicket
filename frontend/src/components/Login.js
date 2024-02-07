@@ -13,7 +13,7 @@ const Login = () => {
   const [invalid, setInvalid] = useState("");
   const navigate = useNavigate();
   const { storeTokenInLS } = useAuth();
-  const URL = "https://movie-ticket-backend-api.vercel.app/";
+  const URL = "http://localhost:5001";
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
