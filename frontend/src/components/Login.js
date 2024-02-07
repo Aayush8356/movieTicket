@@ -13,6 +13,7 @@ const Login = () => {
   const [invalid, setInvalid] = useState("");
   const navigate = useNavigate();
   const { storeTokenInLS } = useAuth();
+  const URL = "http://localhost:5001";
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -25,7 +26,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5001/user/login`, {
+      const response = await fetch(`${URL}/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
