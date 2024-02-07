@@ -10,8 +10,8 @@ const Search = ({ childFunction }) => {
   }
 
   function handleClick() {
-    console.log(input);
     childFunction(input);
+    console.log(input);
   }
 
   return (

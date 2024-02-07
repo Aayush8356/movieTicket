@@ -54,7 +54,12 @@ const MyCollections = () => {
         <Loader />
       ) : (
         list.map((i) => (
-          <CollectionCart title={i.title} year={i.year} key={i._id} />
+          <CollectionCart
+            title={i.title}
+            year={i.year}
+            // type={i.type}
+            key={i._id}
+          />
         ))
       )}
     </>

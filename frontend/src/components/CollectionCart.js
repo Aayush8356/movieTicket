@@ -1,7 +1,7 @@
 import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const CollectionCart = ({ title, year }) => {
+const CollectionCart = ({ title, year, type }) => {
   const URL = "http://localhost:5001";
   const handleDelete = async () => {
     try {
@@ -14,10 +14,12 @@ const CollectionCart = ({ title, year }) => {
         body: JSON.stringify({ title }),
       });
       console.log("Yes, deleted successfully");
-      toast(`${title} removed`);
+      toast.success(`${title} deleted!`, {
+        position: "top-center",
+      });
       setTimeout(function () {
         window.location.reload();
-      }, 4000);
+      }, 1000);
     } catch (error) {
       console.log(error);
     }
@@ -28,6 +30,7 @@ const CollectionCart = ({ title, year }) => {
         <div className="profile-container collection-container">
           <div className="usr list c-list">
             <div className="key c-key">{title}</div>
+            {/* <div className="key c-key">{type}</div> */}
             <div className="value c-value">{year}</div>
           </div>
           <div className="del-btn">

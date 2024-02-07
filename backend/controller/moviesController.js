@@ -51,14 +51,6 @@ const getMovieList = async (req, res) => {
 const removeMovie = async (req, res) => {
   const { id } = req.user;
   const { title } = req.body;
-  // const movie = await Movies.findOne({ user_id: id, title: title });
-
-  // console.log(movie, movie._id);
-  // if (!movie) {
-  //   res.status(404);
-  //   throw new Error("Movie not found!");
-  // }
-  // console.log(movie);
   const result = await Movies.deleteOne({ user_id: id, title: title });
   res.status(200).json(result);
 };

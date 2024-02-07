@@ -16,9 +16,13 @@ const MovieCart = ({ title, poster, type, year }) => {
     });
     if (response.ok) {
       console.log({ response });
-      toast(`${title} added`);
+      toast(`${title} added`, {
+        position: "top-center",
+      });
     } else {
-      toast("already added");
+      toast("already added", {
+        position: "top-center",
+      });
     }
   };
   return (

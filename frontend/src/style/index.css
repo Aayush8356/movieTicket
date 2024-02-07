@@ -115,6 +115,7 @@ button{
 .auth-button{
     display: flex;
     justify-content:right;
+    margin: 8px;
 }
 .home{
     display: flex;
