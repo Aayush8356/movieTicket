@@ -8,7 +8,7 @@ const SignUp = () => {
   });
 
   const navigate = useNavigate();
-
+  const URL = "http://localhost:5001"
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -23,7 +23,7 @@ const SignUp = () => {
     e.preventDefault();
     console.log(user);
     try {
-      const response = await fetch(`http://localhost:5001/user/register`, {
+      const response = await fetch(`${URL}/user/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
