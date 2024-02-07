@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  const API = "http://localhost:5001";
+  const API = "https://movie-ticket-api.onrender.com";
 
   const storeTokenInLS = (serverToken) => {
     setToken(serverToken);
