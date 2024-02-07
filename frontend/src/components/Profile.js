@@ -9,16 +9,16 @@ const Profile = () => {
   const [username, setusername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
   const navigate = useNavigate();
-  // const renderMe = () => {
-    if (isLoggedIn) {
+  const renderMe = () => {
+    // if (isLoggedIn) {
       setusername(user.username);
       setEmail(user.email);
       console.log(username, email);
     } else {
       console.log("not logged in");
       navigate("/logout");
-    }
-  };
+//     }
+// };
   // useEffect(() => {
   //   renderMe();
   // });
