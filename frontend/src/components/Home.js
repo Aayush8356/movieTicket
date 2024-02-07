@@ -14,11 +14,12 @@ const Home = () => {
   const [page, setpage] = useState(1);
   const [full, setFull] = useState(1);
   const { isLoggedIn } = useAuth();
+  const URL = "https://movie-ticket-api.onrender.com";
   async function getData(value) {
     try {
       value = value ? value : "life";
       const response = await fetch(
-        `http://localhost:5001/movies/search/${value}&page=${page}`,
+        `${URL}/movies/search/${value}&page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
