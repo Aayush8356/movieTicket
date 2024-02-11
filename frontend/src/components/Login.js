@@ -36,7 +36,7 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         storeTokenInLS(data.accessToken);
-        console.log(data);
+        // console.log(data);
         navigate("/home");
       } else {
         setInvalid("Invalid Credentials");
